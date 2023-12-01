@@ -11,4 +11,4 @@ const BookList = ({ books, removeBook }) => (
   </div>
 );
 
-export default BookList;
+export default BooksList;

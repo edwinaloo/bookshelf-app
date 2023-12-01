@@ -1,12 +1,10 @@
-// ShowBook.js
-
 import React from "react";
 import BookList from './BooksList';
 
 const ShowBook = ({ books, removeBook }) => (
   <div>
     <h1>Show Book</h1>
-    <BookList books={books} removeBook={removeBook} />
+    <BooksList books={books} removeBook={removeBook} />
   </div>
 );
 

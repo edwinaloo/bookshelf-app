@@ -1,10 +1,7 @@
-// App.js
-
 import React, { useState } from "react";
 import AdminPanel from './components/AdminPanel';
 import AddBookModal from './components/AddBookModal';
 import ShowBook from './components/ShowBook';
-// import BookList from "./components/BooksList";
 
 const App = () => {
   const [books, setBooks] = useState([]);
@@ -18,8 +15,13 @@ const App = () => {
     cost: "",
     availability: "",
   });
+  const [selectedBook, setSelectedBook] = useState(null);
 
-  const handleClose = () => setShowModal(false);
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedBook(null); // Reset selectedBook when closing the modal
+  };
+
   const handleShow = () => setShowModal(true);
 
   const handleInputChange = (e) => {
@@ -29,6 +31,15 @@ const App = () => {
 
   const addBook = () => {
     setBooks([...books, newBook]);
+    setNewBook({
+      name: "", // Set to an empty string for the next new book
+      isbn: "",
+      category: "",
+      row: "",
+      count: "",
+      cost: "",
+      availability: "",
+    });
     handleClose();
   };
 
@@ -37,15 +48,26 @@ const App = () => {
     setBooks(updatedBooks);
   };
 
+  const editBook = () => {
+    const updatedBooks = books.map((book) =>
+      book.isbn === selectedBook.isbn ? { ...book, ...newBook } : book
+    );
+    setBooks(updatedBooks);
+    handleClose();
+  };
+
   return (
     <div>
       <AdminPanel handleShow={handleShow} />
-      <ShowBook books={books} removeBook={removeBook} />
+      <ShowBook books={books} removeBook={removeBook} editBook={setSelectedBook} />
       <AddBookModal
         showModal={showModal}
         handleClose={handleClose}
         handleInputChange={handleInputChange}
         addBook={addBook}
+        editBook={editBook}
+        selectedBook={selectedBook}
+        newBook={newBook} // Pass newBook to the modal for default values
       />
     </div>
   );

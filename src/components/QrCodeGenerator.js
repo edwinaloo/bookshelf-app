@@ -4,8 +4,8 @@ import QRCode from 'qrcode.react';
 const QrCodeGenerator = ({ bookDetails }) => {
   return (
     <div>
-      <h3>QR Code for {bookDetails.bookName}</h3>
-      <QRCode value={`bookshelf-app/show-book/${bookDetails.id}`} />
+      <h3>QR Code for {bookDetails.name}</h3>
+      <QRCode value={`bookshelf-app/show-book/${bookDetails.isbn}`} />
     </div>
   );
 };
