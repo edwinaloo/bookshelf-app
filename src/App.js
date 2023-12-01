@@ -1,25 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Admin from './components/Admin';
+import ShowBooks from './components/ShowBooks';
+import ShowBook from './components/ShowBook';
+import QrScanner from './components/QrScanner';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/admin" component={Admin} />
+        <Route path="/show-books" component={ShowBooks} />
+        <Route path="/show-book/:id" component={ShowBook} />
+        <Route path="/qr-scanner" component={QrScanner} />
+      </Switch>
+    </Router>
   );
 }
 
 export default App;
+
+
