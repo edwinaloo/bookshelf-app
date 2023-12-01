@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { Button, Modal, Form } from "react-bootstrap";
 import AdminPanel from './components/AdminPanel';
 import AddBookModal from './components/AddBookModal';
 import ShowBook from './components/ShowBook';
+import './App.css';
 
 const App = () => {
   const [books, setBooks] = useState([]);
@@ -16,13 +18,18 @@ const App = () => {
     availability: "",
   });
   const [selectedBook, setSelectedBook] = useState(null);
+  const [showForm, setShowForm] = useState(false); // State to control form visibility
 
   const handleClose = () => {
     setShowModal(false);
-    setSelectedBook(null); // Reset selectedBook when closing the modal
+    setSelectedBook(null);
+    setShowForm(false); // Close the form when the modal is closed
   };
 
-  const handleShow = () => setShowModal(true);
+  const handleShow = () => {
+    setShowModal(true);
+    setShowForm(true); // Open the form when the modal is opened
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +39,7 @@ const App = () => {
   const addBook = () => {
     setBooks([...books, newBook]);
     setNewBook({
-      name: "", // Set to an empty string for the next new book
+      name: "",
       isbn: "",
       category: "",
       row: "",
@@ -58,7 +65,7 @@ const App = () => {
 
   return (
     <div>
-      <AdminPanel handleShow={handleShow} />
+      <AdminPanel handleShow={handleShow} handleInputChange={handleInputChange} addBook={addBook} newBook={newBook} />
       <ShowBook books={books} removeBook={removeBook} editBook={setSelectedBook} />
       <AddBookModal
         showModal={showModal}
@@ -67,8 +74,34 @@ const App = () => {
         addBook={addBook}
         editBook={editBook}
         selectedBook={selectedBook}
-        newBook={newBook} // Pass newBook to the modal for default values
+        newBook={newBook}
       />
+      {showForm && (
+        <Modal show={showForm} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Book</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={addBook}>
+              <Form.Group controlId="formBookName">
+                <Form.Label>Book Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter book name"
+                  name="name"
+                  value={newBook.name}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              {/* Add other form fields for ISBN, category, row, count, cost, availability */}
+              {/* ... */}
+              <Button variant="primary" type="submit">
+                Add Book
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+      )}
     </div>
   );
 };
