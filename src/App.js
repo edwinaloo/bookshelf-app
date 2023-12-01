@@ -1,9 +1,10 @@
 // App.js
 
 import React, { useState } from "react";
-import AdminPanel from "./AdminPanel";
-import AddBookModal from "./AddBookModal";
-import ShowBook from "./ShowBook";
+import AdminPanel from './components/AdminPanel';
+import AddBookModal from './components/AddBookModal';
+import ShowBook from './components/ShowBook';
+// import BookList from "./components/BooksList";
 
 const App = () => {
   const [books, setBooks] = useState([]);

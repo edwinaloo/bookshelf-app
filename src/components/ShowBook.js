@@ -1,7 +1,7 @@
 // ShowBook.js
 
 import React from "react";
-import BookList from "./BookList";
+import BookList from './BooksList';
 
 const ShowBook = ({ books, removeBook }) => (
   <div>
