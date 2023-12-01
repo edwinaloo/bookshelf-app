@@ -3,7 +3,7 @@
 import React from "react";
 import Book from "./Book";
 
-const BookList = ({ books, removeBook }) => (
+const BooksList = ({ books, removeBook }) => (
   <div>
     {books.map((book) => (
       <Book key={book.isbn} book={book} removeBook={removeBook} />
