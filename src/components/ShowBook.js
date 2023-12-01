@@ -1,32 +1,13 @@
-import React from 'react';
+// ShowBook.js
 
-const ShowBook = ({ match }) => {
-  const bookId = match.params.id;
+import React from "react";
+import BookList from "./BookList";
 
-  // Add logic to fetch individual book details based on bookId (e.g., call an API)
-  const bookDetails = {
-    id: bookId,
-    bookName: 'Sample Book',
-    isbn: '1234567890',
-    category: 'Fiction',
-    row: 'A',
-    count: 5,
-    cost: 20,
-    availability: true,
-  };
-
-  return (
-    <div>
-      <h2>Book Details</h2>
-      <p>Name: {bookDetails.bookName}</p>
-      <p>ISBN: {bookDetails.isbn}</p>
-      <p>Category: {bookDetails.category}</p>
-      <p>Row: {bookDetails.row}</p>
-      <p>Count: {bookDetails.count}</p>
-      <p>Cost: {bookDetails.cost}</p>
-      <p>Availability: {bookDetails.availability ? 'Available' : 'Not Available'}</p>
-    </div>
-  );
-};
+const ShowBook = ({ books, removeBook }) => (
+  <div>
+    <h1>Show Book</h1>
+    <BookList books={books} removeBook={removeBook} />
+  </div>
+);
 
 export default ShowBook;

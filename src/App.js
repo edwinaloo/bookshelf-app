@@ -1,25 +1,53 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Admin from './components/Admin';
-import ShowBooks from './components/ShowBooks';
-import ShowBook from './components/ShowBook';
-import QrScanner from './components/QrScanner';
-import Navbar from './components/Navbar';
-import QrCodeGenerator from './components/QrCodeGenerator';
+// App.js
 
-function App() {
+import React, { useState } from "react";
+import AdminPanel from "./AdminPanel";
+import AddBookModal from "./AddBookModal";
+import ShowBook from "./ShowBook";
+
+const App = () => {
+  const [books, setBooks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [newBook, setNewBook] = useState({
+    name: "",
+    isbn: "",
+    category: "",
+    row: "",
+    count: "",
+    cost: "",
+    availability: "",
+  });
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewBook({ ...newBook, [name]: value });
+  };
+
+  const addBook = () => {
+    setBooks([...books, newBook]);
+    handleClose();
+  };
+
+  const removeBook = (isbn) => {
+    const updatedBooks = books.filter((book) => book.isbn !== isbn);
+    setBooks(updatedBooks);
+  };
+
   return (
-    <Router>
-      <div>
-        <Navbar />
-        <Route path="/admin" component={Admin} />
-        <Route path="/qr-scanner" component={QrScanner} />
-        <Route path="/show-books" component={ShowBooks} />
-        <Route path="/show-book/:id" component={ShowBook} />
-        <Route path="/qr-code/:id" component={QrCodeGenerator} />
-      </div>
-    </Router>
+    <div>
+      <AdminPanel handleShow={handleShow} />
+      <ShowBook books={books} removeBook={removeBook} />
+      <AddBookModal
+        showModal={showModal}
+        handleClose={handleClose}
+        handleInputChange={handleInputChange}
+        addBook={addBook}
+      />
+    </div>
   );
-}
+};
 
 export default App;
