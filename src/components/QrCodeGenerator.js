@@ -1,5 +1,5 @@
 import React from 'react';
-import QRCode from 'react-qrcode';
+import QRCode from 'qrcode.react';
 
 const QrCodeGenerator = ({ bookDetails }) => {
   return (
